@@ -160,7 +160,7 @@ public class BloodImportService : IBloodImportService
             }
             bloodImport.Status = request.Status;
             bloodImport.Note = request.Note;
-            bloodBag.Quantity += bloodDonationApp.Quantity;
+            //bloodBag.Quantity += bloodDonationApp.Quantity;
             await _bloodImportRepository.UpdateAsync(bloodImport);
 
             if (bloodImport.Status == Common.Enums.BloodImportStatus.Imported && bloodImport.BloodDonationApplicationId != null)

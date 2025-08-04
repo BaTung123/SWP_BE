@@ -4,6 +4,7 @@ using BDSS.Models.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BDSS.Models.Migrations
 {
     [DbContext(typeof(BdssDbContext))]
-    partial class BdssDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250803153941_InitialEmpty")]
+    partial class InitialEmpty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,7 +56,7 @@ namespace BDSS.Models.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Blogs", (string)null);
+                    b.ToTable("Blogs");
                 });
 
             modelBuilder.Entity("BDSS.Models.Entities.BloodBag", b =>
@@ -97,7 +100,7 @@ namespace BDSS.Models.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BloodBags", (string)null);
+                    b.ToTable("BloodBags");
                 });
 
             modelBuilder.Entity("BDSS.Models.Entities.BloodDonationApplication", b =>
@@ -171,7 +174,7 @@ namespace BDSS.Models.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("BloodDonationApplications", (string)null);
+                    b.ToTable("BloodDonationApplications");
                 });
 
             modelBuilder.Entity("BDSS.Models.Entities.BloodExport", b =>
@@ -182,7 +185,7 @@ namespace BDSS.Models.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("BloodBagId")
+                    b.Property<long?>("BloodBagId")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("BloodRequestApplicationId")
@@ -210,7 +213,7 @@ namespace BDSS.Models.Migrations
 
                     b.HasIndex("BloodRequestApplicationId");
 
-                    b.ToTable("BloodExports", (string)null);
+                    b.ToTable("BloodExports");
                 });
 
             modelBuilder.Entity("BDSS.Models.Entities.BloodImport", b =>
@@ -249,7 +252,7 @@ namespace BDSS.Models.Migrations
 
                     b.HasIndex("BloodDonationApplicationId");
 
-                    b.ToTable("BloodImports", (string)null);
+                    b.ToTable("BloodImports");
                 });
 
             modelBuilder.Entity("BDSS.Models.Entities.BloodRequestApplication", b =>
@@ -317,7 +320,7 @@ namespace BDSS.Models.Migrations
 
                     b.HasIndex("BloodBagId");
 
-                    b.ToTable("BloodRequestApplications", (string)null);
+                    b.ToTable("BloodRequestApplications");
                 });
 
             modelBuilder.Entity("BDSS.Models.Entities.Event", b =>
@@ -367,7 +370,7 @@ namespace BDSS.Models.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Events", (string)null);
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("BDSS.Models.Entities.HealthCheck", b =>
@@ -433,7 +436,7 @@ namespace BDSS.Models.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("HealthChecks", (string)null);
+                    b.ToTable("HealthChecks");
                 });
 
             modelBuilder.Entity("BDSS.Models.Entities.User", b =>
@@ -491,7 +494,7 @@ namespace BDSS.Models.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("BDSS.Models.Entities.UserEvents", b =>
@@ -524,7 +527,7 @@ namespace BDSS.Models.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("UserEvents", (string)null);
+                    b.ToTable("UserEvents");
                 });
 
             modelBuilder.Entity("BDSS.Models.Entities.UserOtp", b =>
@@ -565,15 +568,14 @@ namespace BDSS.Models.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserOtps", (string)null);
+                    b.ToTable("UserOtps");
                 });
 
             modelBuilder.Entity("BDSS.Models.Entities.BloodDonationApplication", b =>
                 {
                     b.HasOne("BDSS.Models.Entities.BloodBag", "BloodBag")
                         .WithMany()
-                        .HasForeignKey("BloodBagId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("BloodBagId");
 
                     b.HasOne("BDSS.Models.Entities.Event", "Event")
                         .WithMany()
@@ -595,8 +597,7 @@ namespace BDSS.Models.Migrations
                     b.HasOne("BDSS.Models.Entities.BloodBag", "BloodBag")
                         .WithMany("BloodExports")
                         .HasForeignKey("BloodBagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("BDSS.Models.Entities.BloodRequestApplication", "BloodRequestApplication")
                         .WithMany()
@@ -612,8 +613,7 @@ namespace BDSS.Models.Migrations
                     b.HasOne("BDSS.Models.Entities.BloodBag", "BloodBag")
                         .WithMany("BloodImports")
                         .HasForeignKey("BloodBagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("BDSS.Models.Entities.BloodDonationApplication", "BloodDonationApplication")
                         .WithMany()

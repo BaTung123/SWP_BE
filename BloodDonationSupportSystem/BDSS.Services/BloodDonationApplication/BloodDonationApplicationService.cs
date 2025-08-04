@@ -122,18 +122,18 @@ public class BloodDonationApplicationService : IBloodDonationApplicationService
 
     public async Task<BaseResponseModel<BloodDonationApplicationDto>> UpdateBloodDonationApplicationAsync(UpdateBloodDonationApplicationRequest request)
     {
-        var bloodBags = await _bloodBagRepository.GetBloodBagsByBloodTypeAsync(request.BloodType);
-        var availableBloodBag = bloodBags.FirstOrDefault(bb => bb.Status == BloodBagStatus.Available);
-        if (availableBloodBag == null)
-        {
-            return new BaseResponseModel<BloodDonationApplicationDto> { Code = 404, Message = "No available blood bag found for this blood type" };
-        }
+        //var bloodBags = await _bloodBagRepository.GetBloodBagsByBloodTypeAsync(request.BloodType);
+        //var availableBloodBag = bloodBags.FirstOrDefault(bb => bb.Status == BloodBagStatus.Available);
+        //if (availableBloodBag == null)
+        //{
+        //    return new BaseResponseModel<BloodDonationApplicationDto> { Code = 404, Message = "No available blood bag found for this blood type" };
+        //}
         var entity = await _repository.FindAsync(request.Id);
         if (entity == null)
         {
             return new BaseResponseModel<BloodDonationApplicationDto> { Code = 404, Message = "Not found" };
         }
-        entity.BloodBagId = availableBloodBag.Id;
+        //entity.BloodBagId = availableBloodBag.Id;
         entity.BloodType = request.BloodType;
         entity.BloodTransferType = request.BloodTransferType;
         entity.Quantity = request.Quantity.Value;

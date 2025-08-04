@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BDSS.Models.Migrations
 {
     [DbContext(typeof(BdssDbContext))]
-    [Migration("20250803153622_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250803154719_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -224,7 +224,7 @@ namespace BDSS.Models.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("BloodBagId")
+                    b.Property<long?>("BloodBagId")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("BloodDonationApplicationId")

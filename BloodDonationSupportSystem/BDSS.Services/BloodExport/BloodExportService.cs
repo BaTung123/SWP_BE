@@ -107,7 +107,7 @@ public class BloodExportService : IBloodExportService
 
     private static bool IsValidStatusTransition(BDSS.Common.Enums.BloodExportStatus current, BDSS.Common.Enums.BloodExportStatus next)
     {
-        return (current == BDSS.Common.Enums.BloodExportStatus.Pending && (next == BDSS.Common.Enums.BloodExportStatus.Accepted || next == BDSS.Common.Enums.BloodExportStatus.Denied))
+        return (current == BDSS.Common.Enums.BloodExportStatus.Pending && (next == BDSS.Common.Enums.BloodExportStatus.Accepted || next == BDSS.Common.Enums.BloodExportStatus.Denied || next == BDSS.Common.Enums.BloodExportStatus.Exported))
             || (current == BDSS.Common.Enums.BloodExportStatus.Accepted && next == BDSS.Common.Enums.BloodExportStatus.Exported)
             || (current == next && (current == BDSS.Common.Enums.BloodExportStatus.Exported || current == BDSS.Common.Enums.BloodExportStatus.Denied));
     }
@@ -135,6 +135,7 @@ public class BloodExportService : IBloodExportService
                 if (requestApp != null)
                 {
                     requestApp.Status = BDSS.Common.Enums.BloodRequestStatus.Received;
+                    requestApp.BloodBagId = bloodExport.BloodBagId;
                     await _bloodRequestApplicationRepository.UpdateAsync(requestApp);
                 }
             }
